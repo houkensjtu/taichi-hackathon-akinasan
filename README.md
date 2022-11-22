@@ -8,17 +8,18 @@ Akinasan team (秋名山车队)
 [houkensjtu](https://github.com/houkensjtu), [Linus-Civil](https://github.com/Linus-Civil)
 
 ### Project name
-Self-driven car powered by Taichi
+Self-driving car powered by Taichi
 
 ### Project description
-Our object is to control a RC car with neural networks trained for image classification written in the Taichi language. 
-We plan to run our code on Nvidia Jetson Nano. 
+Our goal is to build a self-driving car based on Nvidia Jetson Nano. The project proposal is as follows:
+1. The circuit of an ordinary RC toy car will be modified so that Jetson Nano can control the movement of the car through GPIO port. Of course, we need to use motor drive controller here, because the upper limit of the output current of Jetson Nano is not enough to drive the car motor directly.
+2. The convolution neural network (CNN) will be implemented based on Taichi programming language.
+3. The road data will be collected, then classified and labeled, and finally used in the training of CNN models.
+4. The pre-trained model will be imported into Jetson Nano and the action prediction will be made for the images captured during driving.
 
-As shown in the sketch below, we will use a camera module to capture images of the road, and the information will be processed
-by a neural-network written in Taichi. The neural-network will output a decision to tell the RC car to turn left, turn right or
-keep straight.
+As shown in the sketch below, All the hardware will be fixed to the modified car. The image is captured by the camera module and passed into the CNN model running on Jetson Nano. The model predicts the corresponding behavior of the image. Finally, according to the predicted results, Jetson Nano sends out logic signals through the GPIO port to control the movement of the car.
 
-![project-overview](https://user-images.githubusercontent.com/2747993/203252767-d7b7613b-d85f-4fd7-a1ee-307466571c37.png)
+![flowcharts](https://user-images.githubusercontent.com/46706788/203298575-5f83df2d-a071-4e61-892e-c32ddb09a009.png)
 
 [Taichi](https://docs.taichi-lang.org/) is an open source, high-performance parallel programming language embedded in Python. 
 Thanks to its portability, Taichi can be run on various backends, including x86, CUDA, Arm and many other platforms. 
