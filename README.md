@@ -17,7 +17,7 @@ Our goal is to build a self-driving car based on Nvidia Jetson Nano. The project
 3. The road data will be collected, then classified and labeled, and finally used in the training of CNN models.
 4. The pre-trained model will be imported into Jetson Nano and the action prediction will be made for the images captured during driving.
 
-As shown in the sketch below, All the hardware will be fixed to the modified car. The image is captured by the camera module and passed into the CNN model running on Jetson Nano. The model predicts the corresponding behavior of the image. Finally, according to the predicted results, Jetson Nano sends out logic signals through the GPIO port to control the movement of the car.
+ The running procedure of the self-driving car is shown in the sketch below. All the hardware will be fixed to the modified car. The image is captured by the camera module and passed into the CNN model running on Jetson Nano. The model predicts the corresponding behavior of the image. Finally, according to the predicted results, Jetson Nano sends out logic signals through the GPIO port to control the movement of the car.
 
 ![flowcharts](https://user-images.githubusercontent.com/46706788/203298575-5f83df2d-a071-4e61-892e-c32ddb09a009.png)
 
