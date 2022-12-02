@@ -6,12 +6,10 @@ class Processor(object):
 
     def write(self,buf):
         # 例如将JPEG帧保存成文件
-        if buf.startswith(b'\xff\xd8'):
-            if self.output:
-                self.output.close()
-            self.frame_num += 1
-            self.output = io.open('{}_image{}.jpg'.format(key, time()), 'wb')
-        self.output.write(buf)
+        filename = f'{self.frame_num:06d}.jpg'
+        cv.imwrite(filename, buf)
+        print(f'>>> Captured and saved frame {filename}')
+        self.frame_num += 1
 
     def flush(self):
         pass
