@@ -16,6 +16,8 @@ class PWM(object):
 
     def pwm_start(self,queue):
         # initial parameters to prevent misoperation
+        print('PWM start')
+        print(self.pwm_flag,self.channel)
         f = 100.0  # default Frequency
         c = 0.0  # default duty cycle
         t = 1 / f

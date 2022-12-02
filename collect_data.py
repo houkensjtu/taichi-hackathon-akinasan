@@ -66,12 +66,12 @@ def start_drive(cc):
                 elif key_input[pygame.K_a]:
                     print("Left")
                     cc.car_turn_left()
-                    sleep(0.1)
+                    time.sleep(0.1)
                     key = 0
                 elif key_input[pygame.K_d]:
                     print("Right")
                     cc.car_turn_right()
-                    sleep(0.1)
+                    time.sleep(0.1)
                     key = 1
                 elif key_input[pygame.K_s]:
                     print("Backward")
