@@ -1,8 +1,8 @@
 from ctlPWM import car_control
 from Camera import Camera
-
+import cv2 as cv
 import os
-os.environ['SDL_VIDEODRIVE'] = 'x11'  
+os.environ['SDL_VIDEODRIVE'] = 'x11'
 import pygame
 
 import io
@@ -19,7 +19,7 @@ class Processor(object):
     def write(self,buf):
         global key
         
-        filename = '{}_image{:0>6d}.jpg'.format(key,frame_num)
+        filename = '{}_image{:0>6d}.jpg'.format(key,self.frame_num)
         cv.imwrite(filename, buf)
         print(f'>>> Captured and saved frame {filename}')
         self.frame_num += 1
@@ -33,7 +33,7 @@ def cam_capture():
     print("Start capture")        
     is_capture_running = True
 
-    camera = Camera(resolution=(160, 120), framerate=30, vflip=True, hflip=True)
+    camera = Camera(resolution=(160, 120), framerate=30, vflip=False, hflip=False)
     outproc = Processor()
 
     camera.start_recording(outproc)
@@ -44,13 +44,13 @@ def cam_capture():
     print("quit camera capture")
     is_capture_running = False
 
-def start_drive(): 
+def start_drive(cc): 
     global is_capture_running, key
     key = 4
     pygame.init()
     pygame.display.set_mode((1,1))
-    car_control.car_stop()
-    sleep(0.1)
+    cc.car_stop()
+    time.sleep(0.1)
     print("Start control!")
  
     while is_capture_running:
