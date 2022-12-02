@@ -8,7 +8,7 @@ if not cap.isOpened():
 
 frame_id =0
 while True:
-    dim = (160, 120)    
+    dim = (160, 120)
     ret, frame = cap.read()
     if not ret:
         print("Can't receive frame (stream end?). Exiting ...")
