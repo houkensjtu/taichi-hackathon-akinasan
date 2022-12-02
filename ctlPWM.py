@@ -86,6 +86,7 @@ class car_control(object):
     def car_stop(self):
         GPIO.output(self.backMotorInput1, GPIO.LOW)
         GPIO.output(self.backMotorInput2, GPIO.LOW)
+        self.car_turn_straight()
 
     def car_turn_straight(self):
         GPIO.output(self.frontMotorEn, GPIO.LOW)
