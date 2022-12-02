@@ -71,3 +71,13 @@ class ProcessOutput(object):
     camera.wait_recording(time=120)
     camera.stop_recording()
 ```
+
+### 更新说明
+#### collect_data分支
+##### 第一次更新
+- 增加`collect_data.py`，用于收集训练数据
+- `Class Processor`，帧处理类放置于`collect_data.py`文件中，更方便的自定义 `write()`函数行为，以及接收全局变量`key`
+	- 在正式的自动驾驶代码中，`write()`函数需要重新定义，以通过卷积神经网络
+	- `write()`函数中的文件保存名字加入了按键`key`，即图像的标签
+- `Camera.start_recording()`，帧处理类的实例化交给用户，例如`collect_data.py`第43-44行用于查看帧处理实例的相关信息
+- `Camera.wait_recording()`，更改为记录固定时长，并删除`waitKey()`
