@@ -438,15 +438,15 @@ def generate_input_field(tf:ti.template(),arr:ti.types.ndarray()):
     for i,j in ti.ndrange(28,28):
         tf[0,i,j] = arr[i,j]
 
-def load_cnn(cnn):
-    cnn.CovLayer_1.mapData.from_numpy(np.load('trained_model/clayer1_map.npy'))
-    cnn.CovLayer_1.biasData.from_numpy(np.load('trained_model/layer1_bias.npy'))
+def load_cnn(cnn,path):
+    cnn.CovLayer_1.mapData.from_numpy(np.load(path+'/clayer1_map.npy'))
+    cnn.CovLayer_1.biasData.from_numpy(np.load(path+'/layer1_bias.npy'))
 
-    cnn.CovLayer_2.mapData.from_numpy(np.load('trained_model/clayer2_map.npy'))
-    cnn.CovLayer_2.biasData.from_numpy(np.load('trained_model/clayer2_bias.npy'))
+    cnn.CovLayer_2.mapData.from_numpy(np.load(path+'/clayer2_map.npy'))
+    cnn.CovLayer_2.biasData.from_numpy(np.load(path+'/clayer2_bias.npy'))
 
-    cnn.OutLayer.wData.from_numpy(np.load('trained_model/outlayer_w.npy'))
-    cnn.OutLayer.biasData.from_numpy(np.load('trained_model/outlayer_bias.npy'))
+    cnn.OutLayer.wData.from_numpy(np.load(path+'/outlayer_w.npy'))
+    cnn.OutLayer.biasData.from_numpy(np.load(path+'/outlayer_bias.npy'))
 
 @ti.kernel
 def max_index(f:ti.template()) -> int:
@@ -575,7 +575,9 @@ if __name__ == '__main__':
     speed = 0.8
     cc = car_control(speed)
 
+    model_path = 'trained_model'
+    # model_path = 'trained_model_office'
     cnn1 = cnn_network(28,28)
-    load_cnn(cnn1)
+    load_cnn(cnn1,path)
 
     main()
