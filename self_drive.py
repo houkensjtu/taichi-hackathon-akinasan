@@ -468,7 +468,7 @@ def predict(buf):
     cnnclear(cnn1)
     return y_max_index
 
-def car_move(value):
+def car_move(action_num):
     global latest_time, cc, cnn1
     if action_num == 0:
         print("Left")
