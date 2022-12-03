@@ -9,40 +9,13 @@ class Signal(object):
         self.frequency = 100 # 100HZ
         self.duty_cycle = 0.0
 
-class PWM(object):
-    def __init__(self,channel):
-        self.pwm_flag = True
-        self.channel = channel
-
-    def pwm_start(self,queue):
-        # initial parameters to prevent misoperation
-        f = 100.0  # default Frequency
-        c = 0.0  # default duty cycle
-        t = 1 / f
-        t_h = t * c
-        t_l = t * (1 - c)
-
-        while self.pwm_flag:
-            GPIO.output(self.channel, GPIO.HIGH)
-            time.sleep(t_h)
-            GPIO.output(self.channel, GPIO.LOW)
-            time.sleep(t_l)
-
-            if not queue.empty():
-                n_sig = queue.get()
-                self.pwm_flag = n_sig.run_flag
-                f = n_sig.frequency
-                c = n_sig.duty_cycle
-                t = 1 / f
-                t_h = t * c
-                t_l = t * (1 - c)
 
 class car_control(object):
     """docstring for ClassName"""
     def __init__(self,speed):
         self.backMotorInput1 = 13
         self.backMotorInput2 = 15
-        self.backMotorEn = 12
+        self.backMotorEn = 32
         self.frontMotorInput1 = 7
         self.frontMotorInput2 = 11
         self.frontMotorEn = 16
@@ -55,13 +28,37 @@ class car_control(object):
         GPIO.setup(self.frontMotorInput1, GPIO.OUT)
         GPIO.setup(self.frontMotorInput2, GPIO.OUT)
 
-        self.pwm = PWM(self.backMotorEn)
         self.sig = Signal()
         self.sig.duty_cycle = speed
         self.q = Queue()
         self.q.put(self.sig)
-        self.p = Process(target=self.pwm.pwm_start,args=(self.q,))
+        self.p = Process(target=self.pwm,args=(self.q,self.backMotorEn,True))
         self.p.start()
+
+    def pwm(self,queue,channel,flag):
+        pwm_channel = channel
+        pwm_flag = flag
+
+        f = 100.0  # default Frequency
+        c = 0.0  # default duty cycle
+        t = 1 / f
+        t_h = t * c
+        t_l = t * (1 - c)
+
+        while pwm_flag:
+            GPIO.output(pwm_channel, GPIO.HIGH)
+            time.sleep(t_h)
+            GPIO.output(pwm_channel, GPIO.LOW)
+            time.sleep(t_l)
+
+            if not queue.empty():
+                n_sig = queue.get()
+                pwm_flag = n_sig.run_flag
+                f = n_sig.frequency
+                c = n_sig.duty_cycle
+                t = 1 / f
+                t_h = t * c
+                t_l = t * (1 - c)
 
     def car_move_forward(self):
         GPIO.output(self.backMotorInput2, GPIO.HIGH)
