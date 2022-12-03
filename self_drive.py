@@ -518,9 +518,7 @@ class ImageProcessor(threading.Thread):
 
 def RGB2GRAY(img):
     temp_img = np.zeros([28,28])
-    for i in range(28):
-        for j in range(28):
-            temp_img[i,j] = img[i,j,0]*0.3+img[i,j,1]*0.59+img[i,j,2]*0.11
+    temp_img = img[:,:,0]*0.3+img[:,:,1]*0.59+img[:,:,2]*0.11
     return temp_img
 
 class ProcessOutput(object):
