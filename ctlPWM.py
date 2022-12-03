@@ -4,18 +4,18 @@ from multiprocessing import Queue
 import time
 
 class Signal(object):
-    def __init__(self,channel):
+    def __init__(self):
         self.run_flag = True
         self.frequency = 100 # 100HZ
         self.duty_cycle = 0.0
-        self.channel = channel
+
 
 class car_control(object):
     """docstring for ClassName"""
     def __init__(self,speed):
         self.backMotorInput1 = 13
         self.backMotorInput2 = 15
-        self.backMotorEn = 12
+        self.backMotorEn = 32
         self.frontMotorInput1 = 7
         self.frontMotorInput2 = 11
         self.frontMotorEn = 16
@@ -83,6 +83,7 @@ class car_control(object):
     def car_stop(self):
         GPIO.output(self.backMotorInput1, GPIO.LOW)
         GPIO.output(self.backMotorInput2, GPIO.LOW)
+        self.car_turn_straight()
 
     def car_turn_straight(self):
         GPIO.output(self.frontMotorEn, GPIO.LOW)
