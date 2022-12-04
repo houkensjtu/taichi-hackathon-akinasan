@@ -19,7 +19,7 @@ Our goal is to build a self-driving car based on Nvidia Jetson Nano. The project
 
  The running procedure of the self-driving car is shown in the sketch below. All the hardware will be fixed to the modified car. The image is captured by the camera module and passed into the CNN model running on Jetson Nano. The model predicts the corresponding behavior of the image. Finally, according to the predicted results, Jetson Nano sends out logic signals through the GPIO port to control the movement of the car.
 
-![flowcharts](https://user-images.githubusercontent.com/46706788/203298575-5f83df2d-a071-4e61-892e-c32ddb09a009.png)
+![image](https://user-images.githubusercontent.com/46706788/205470986-79449846-175e-46f0-ae98-9b6f438aa025.png)
 
 [Taichi](https://docs.taichi-lang.org/) is an open source, high-performance parallel programming language embedded in Python. 
 Thanks to its portability, Taichi can be run on various backends, including x86, CUDA, Arm and many other platforms. 
